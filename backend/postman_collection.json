@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "Disaster Relief Management API",
+    "description": "Complete API collection for the Disaster Relief System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@disasterrelief.com\",\n    \"password\": \"Admin@123\"\n}",
+              "options": {"raw": {"language": "json"}}
+            },
+            "url": {"raw": "{{base_url}}/login", "host": ["{{base_url}}"], "path": ["login"]}
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]},
+            "method": "GET",
+            "url": {"raw": "{{base_url}}/me", "host": ["{{base_url}}"], "path": ["me"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Summary Analytics",
+          "request": {
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]},
+            "method": "GET",
+            "url": {"raw": "{{base_url}}/dashboard/summary", "host": ["{{base_url}}"], "path": ["dashboard", "summary"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disasters",
+      "item": [
+        {
+          "name": "Get Disasters",
+          "request": {
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{token}}", "type": "string"}]},
+            "method": "GET",
+            "url": {"raw": "{{base_url}}/disasters", "host": ["{{base_url}}"], "path": ["disasters"]}
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {"key": "base_url", "value": "http://localhost:8000/api/v1"},
+    {"key": "token", "value": "YOUR_ACCESS_TOKEN_HERE"}
+  ]
+}

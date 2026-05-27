@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #050816;
+  --color-bg-surface: #0B1020;
+  --color-bg-surface-light: #101827;
+  
+  --color-primary-400: #14F1D9;
+  --color-primary-500: #00D084;
+  --color-primary-600: #00A669;
+
+  --color-accent-500: #3DD9FF;
+  --color-warning-500: #F59E0B;
+  --color-danger-500: #EF4444;
+
+  /* Atmospheric Colors */
+  --color-atmos-crimson: #FF5A5F;
+  --color-atmos-ember: #FF7849;
+  --color-atmos-magenta: #C72C6C;
+  --color-atmos-purple: #6D214F;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-base text-zinc-300 antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-zinc-100 font-bold tracking-tight;
+  }
+  
+  input, textarea, select {
+    @apply text-slate-100 placeholder-slate-500 caret-emerald-400;
+  }
+}
+
+/* Glass Panels (High elevation containers like Login Box) */
+.glass-panel {
+  @apply backdrop-blur-[80px] rounded-2xl relative overflow-hidden;
+  background: linear-gradient(180deg, rgba(30, 40, 60, 0.25) 0%, rgba(10, 15, 30, 0.4) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2), /* Internal top reflection */
+    inset 0 -1px 0 0 rgba(255, 255, 255, 0.04), /* Subtle bottom reflection */
+    0 40px 80px -20px rgba(0, 0, 0, 0.95), /* Massive physical drop shadow */
+    0 0 0 1px rgba(255, 255, 255, 0.03); /* Soft neutral rim */
+}
+
+/* Glass Cards (Low elevation like KPIs, Dashboards) */
+.glass-card {
+  @apply backdrop-blur-xl rounded-xl relative overflow-hidden transition-all duration-500;
+  background: linear-gradient(180deg, rgba(30, 40, 60, 0.15) 0%, rgba(11, 16, 32, 0.3) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    inset 1px 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card:hover {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(180deg, rgba(40, 55, 80, 0.2) 0%, rgba(15, 22, 40, 0.4) 100%);
+  box-shadow: 
+    inset 1px 1px 0 0 rgba(255, 255, 255, 0.25),
+    0 15px 35px -10px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px);
+}
+
+/* Primary Button with Continuous Sweeping Light Effect */
+.btn-primary {
+  @apply flex justify-center items-center py-3 px-6 rounded-xl text-sm font-bold text-zinc-950 transition-all duration-500 relative overflow-hidden border border-primary-400/30;
+  background: linear-gradient(180deg, var(--color-primary-400) 0%, var(--color-primary-600) 100%);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+    0 10px 20px -5px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(0, 208, 132, 0.1);
+  z-index: 1;
+}
+
+@keyframes sweep {
+  0% { left: -100%; opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { left: 200%; opacity: 0; }
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-20deg);
+  animation: sweep 6s infinite ease-in-out;
+  z-index: -1;
+}
+
+.btn-primary:hover {
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.6),
+    0 15px 25px -5px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(0, 208, 132, 0.2);
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-primary:active {
+  transform: scale(0.98) translateY(0);
+  box-shadow: 
+    inset 0 2px 10px rgba(0, 0, 0, 0.4);
+  filter: brightness(0.95);
+}
+
+/* Clean Enterprise Badges */
+.badge-red {
+  @apply bg-danger-500/10 text-danger-500 border border-danger-500/20 rounded px-2 py-0.5 text-xs font-medium;
+}
+.badge-green {
+  @apply bg-primary-500/10 text-primary-500 border border-primary-500/20 rounded px-2 py-0.5 text-xs font-medium;
+}
+.badge-blue {
+  @apply bg-accent-500/10 text-accent-500 border border-accent-500/20 rounded px-2 py-0.5 text-xs font-medium;
+}
+.badge-yellow {
+  @apply bg-warning-500/10 text-warning-500 border border-warning-500/20 rounded px-2 py-0.5 text-xs font-medium;
+}
+
+/* Custom Tactical Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-bg-base; 
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-bg-surface-light rounded-full; 
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-600; 
+}
+
+/* Futuristic Admin Forms */
+.glass-modal {
+  @apply bg-slate-900/80 backdrop-blur-2xl border border-slate-700/50 shadow-[0_0_50px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.1)] rounded-2xl relative overflow-hidden;
+}
+
+.relief-input {
+  @apply w-full px-4 py-2.5 bg-slate-950/50 border border-slate-800/80 rounded-xl text-slate-100 placeholder-slate-600 focus:bg-slate-900 focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all duration-300 shadow-inner hover:border-slate-700;
+}
+
+.relief-input-error {
+  @apply border-red-500/50 focus:border-red-500/80 focus:ring-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.1)];
+}
+
+.relief-label {
+  @apply block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5 ml-1;
+}
+
+/* Base resets to clear any weird browser defaults */
+input[type="text"], input[type="email"], input[type="number"], input[type="password"], select, textarea {
+  @apply bg-transparent;
+}
+
+option {
+  @apply bg-slate-900 text-slate-100;
+}
+
+.relief-checkbox {
+  @apply h-5 w-5 rounded-md border border-slate-700 bg-slate-900/50 text-emerald-500 focus:ring-emerald-500/50 focus:ring-offset-0 focus:ring-2 transition-all cursor-pointer accent-emerald-500 shadow-inner;
+}
