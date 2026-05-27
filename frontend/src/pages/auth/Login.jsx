@@ -256,6 +256,25 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
+
+    // --- VERCEL PRESENTATION DEMO BYPASS ---
+    // Simulates an API response without needing a live backend
+    if (credentials.email === 'admin@disasterrelief.com') {
+      const demoUser = { id: 1, name: 'Command Admin', email: credentials.email, role: { slug: 'super-admin' } };
+      dispatch(loginSuccess({ user: demoUser, token: 'demo-token-123' }));
+      toast.success('Successfully authenticated.');
+      navigate('/dashboard');
+      return;
+    }
+    if (credentials.email === 'chetan123@gmail.com' || credentials.email.includes('chetan')) {
+      const demoUser = { id: 2, name: 'Chetan Citizen', email: credentials.email, role: { slug: 'citizen' } };
+      dispatch(loginSuccess({ user: demoUser, token: 'demo-token-456' }));
+      toast.success('Successfully authenticated.');
+      navigate('/portal/home');
+      return;
+    }
+    // ---------------------------------------
+
     try {
       // First get CSRF cookie for Sanctum
       await api.get('/sanctum/csrf-cookie', { baseURL: 'http://localhost:8000' });
