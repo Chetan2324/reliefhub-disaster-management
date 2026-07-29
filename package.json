@@ -1,0 +1,11 @@
+{
+  "name": "reliefhub-disaster-management",
+  "private": true,
+  "scripts": {
+    "setup:frontend": "npm --prefix frontend install",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "lint:frontend": "npm --prefix frontend run lint",
+    "build:frontend": "npm --prefix frontend run build",
+    "test:backend": "cd backend && php artisan test"
+  }
+}
