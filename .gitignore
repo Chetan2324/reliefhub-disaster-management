@@ -7,15 +7,20 @@ yarn-error.log
 frontend/dist/
 frontend/build/
 .next/
+.vercel/
 
 # Laravel/Backend
 backend/vendor/
 backend/.env
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
 backend/storage/framework/views/*
 backend/storage/framework/sessions/*
 backend/storage/logs/*
 backend/bootstrap/cache/*
 backend/public/storage
+backend/database/database.sqlite
 
 # Environment variables
 .env
@@ -35,3 +40,4 @@ Thumbs.db
 # Other
 coverage/
 .nyc_output/
+tmp/
